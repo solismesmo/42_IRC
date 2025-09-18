@@ -1,16 +1,16 @@
-// main.cpp — Servidor mínimo ft_irc
-#include <iostream>
-#include <cstring>
-#include <cstdlib>
-#include <cerrno>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <poll.h>
-#include <cstdio>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/17 21:41:26 by livieira          #+#    #+#             */
+/*   Updated: 2025/09/17 21:52:31 by livieira         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#define BACKLOG 10
+#include "ft_irc.hpp"
 
 int main(int argc, char **argv) {
     if (argc != 2) {
