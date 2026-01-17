@@ -72,8 +72,10 @@ void	Server::_waitActivity(void)
 		if(this->_clients_fds[i].revents == 0)
 			continue;
 
-		if (this->_clients_fds[i].fd == this->_server_socket)
+		if (this->_clients_fds[i].fd == this->_server_socket) {
 			this->_acceptConnection();
+			return;
+		}
 		else if (i > 0)
 		{
 			Client *client = this->_clients[i - 1];
@@ -85,45 +87,39 @@ void	Server::_waitActivity(void)
 void	Server::_acceptConnection(void)
 {
 	int	socket;
-	do {
+	// do {
 		struct sockaddr_in6 address;
 		socklen_t addrlen = sizeof(address);
 
 		socket = accept(this->_server_socket, (struct sockaddr*)&address, (socklen_t*)&addrlen);
-		if (socket < 0)
-		{
-			if (errno != EWOULDBLOCK)
-				std::cout << "Error: Failed to accept connection." << std::endl;
-			break;
-		}
+		// if (socket < 0)
+		// {
+		// 	if (errno != EWOULDBLOCK)
+		// 		std::cout << "Error: Failed to accept connection." << std::endl;
+		// 	break;
+		// }
 		this->addClient(socket, ft_inet_ntop6(&address.sin6_addr), ntohs(address.sin6_port));
-	} while (socket != -1);
+	// } while (socket != -1);
 }
 
 void	Server::_receiveData(Client *client)
 {
 	char	buffer[BUFFER_SIZE + 1];
 
-	do {
+	// do {
 		int ret = recv(client->getFD(), buffer, sizeof(buffer), 0);
-		if (ret < 0)
-		{
-			if (errno != EWOULDBLOCK)
-			{
-				std::cout << "Error: recv() failed for fd " << client->getFD();
-				this->delClient(client->getFD());
-			}
-			break;
-		}
-		else if (!ret)
+
+		if (ret <= 0)
 		{
 			this->delClient(client->getFD());
-			break;
+			return;
 		}
 		else
 		{
 			buffer[ret] = '\0';
 			std::string buff = buffer;
+
+			// std::cout << "client " << client->getFD() << " " << buff << std::endl;
 
 			if (buff.at(buff.size() - 1) == '\n') {
 				std::vector<std::string> cmds = ft_split(client->getPartialRecv() + buff, '\n');
@@ -139,7 +135,7 @@ void	Server::_receiveData(Client *client)
 					std::cout << "partial recv(" << client->getFD() << "): " << buff << std::endl;
 			}
 		}
-	} while(TRUE);
+	// } while(TRUE);
 }
 
 void	Server::_setNonBlocking(int fd)
@@ -159,6 +155,8 @@ ssize_t	Server::send(std::string message, int client_fd) const
 
 	if (DEBUG)
 		std::cout << "send(" << client_fd << "): " << message;
+
+	std::cout << "-> client " << client_fd << " " << message << std::endl;
 
 	ssize_t	sent_size = ::send(client_fd, message.c_str(), message.length(), 0);
 	if(sent_size != (ssize_t) message.length())

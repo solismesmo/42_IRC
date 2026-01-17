@@ -38,6 +38,8 @@ void CommandHandler::invoke(Client *client, const std::string &message)
 		syntax = syntax.substr(0, syntax[syntax.length() - 1] == '\r' ? syntax.length() - 1 : syntax.length());
 		std::string name = syntax.substr(0, syntax.find(' '));
 
+		std::cout << "<- client " << client->getFD() << " " << syntax << std::endl;
+
 		try
 		{
 			Command *command = _commands.at(name);
