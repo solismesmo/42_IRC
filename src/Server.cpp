@@ -151,7 +151,7 @@ ssize_t	Server::send(std::string message, int client_fd) const
 	if (DEBUG)
 		std::cout << "send(" << client_fd << "): " << message;
 
-	std::cout << "-> client " << client_fd << " " << message << std::endl;
+	std::cout << "-> client " << client_fd << " " << message;
 
 	ssize_t	sent_size = ::send(client_fd, message.c_str(), message.length(), 0);
 	if(sent_size != (ssize_t) message.length())
@@ -307,7 +307,6 @@ void	Server::broadcastChannel(std::string message, int exclude_fd, Channel const
 		if (clients[i]->getFD() != exclude_fd)
 			this->send(message, clients[i]->getFD());
 }
-
 
 void	Server::_handleMessage(std::string const message, Client *client)
 {
