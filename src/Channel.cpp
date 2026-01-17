@@ -2,7 +2,8 @@
 #include "rpl.hpp"
 
 Channel::Channel(std::string const &name, std::string const &password, Client *admin, Server *server)
-					: _name(name) , _admin(admin), _l(1000), _i(false), _k(password), _server(server) {}
+	: _name(name), _admin(admin), _l(1000), _i(false), _k(password), _t(false), _topic(""), _server(server) {}
+
 Channel::~Channel() {}
 
 std::vector<std::string>	Channel::getNickNames()
@@ -111,9 +112,9 @@ void Channel::kick(Client *client, Client *target, std::string reason)
 
 void Channel::invit(Client *client, Client *target)
 {
-	client->reply(RPL_INVITING(client->getNickName(), target->getNickName(), this->_name));
-	target->write(RPL_INVITE(client->getPrefix(), target->getNickName(), this->_name));
-	target->join(this);
+    client->reply(RPL_INVITING(client->getNickName(), target->getNickName(), this->_name));
+    target->write(RPL_INVITE(client->getPrefix(), target->getNickName(), this->_name));
+    target->join(this);
 }
 
 bool	Channel::isInChannel(Client *client)

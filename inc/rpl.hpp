@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rpl.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 23:21:32 by livieira          #+#    #+#             */
-/*   Updated: 2026/01/13 23:21:37 by livieira         ###   ########.fr       */
+/*   Updated: 2026/01/16 23:51:21 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 #define ERR_UNKNOWNCOMMAND(source, command)				"421 " + source + " " + command + " :Unknown command"
 #define ERR_USERONCHANNEL(source, target, channel)		"443 " + source + " " + target + " " + channel + " :is already on channel"
 #define ERR_NOSUCHNICK(source, name)					"401 " + source + " " + name + " :No such nick/channel"
-#define ERR_INVITEONLYCHAN(source, channel)				"473 " + source + " " + channel + " :Cannot join channel (+i)"
+#define ERR_ONLYCHAN(source, channel)				"473 " + source + " " + channel + " :Cannot join channel (+i)"
 
 // NUMERIC REPLIES
 #define RPL_WELCOME(source, prefix)										"001 " + source + " :Welcome to the Internet Relay Network " + prefix

@@ -22,10 +22,14 @@ void ListCommand::execute(Client *client, std::vector<std::string> arguments)
 	if (arguments.size() > 0)
 		channelNames = ft_split(arguments[0], ',');
 
-	for(unsigned long i=0; i < chans.size(); i++)
+	for (unsigned long i = 0; i < chans.size(); i++)
 	{
 		if (arguments.empty() || isInChannelsList(chans[i], channelNames))
-			client->reply(RPL_LIST(client->getNickName(), chans[i]->getName(), intToString(chans[i]->getNbrClients()), "No topic is set"));
+		{
+			// ✅ Aqui é o ponto que você queria: LIST mostra tópico real
+			std::string topic = chans[i]->getTopic().empty() ? "No topic is set" : chans[i]->getTopic();
+			client->reply(RPL_LIST(client->getNickName(), chans[i]->getName(), intToString(chans[i]->getNbrClients()), topic));
+		}
 	}
 
 	client->reply(RPL_LISTEND(client->getNickName()));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 23:22:13 by livieira          #+#    #+#             */
-/*   Updated: 2026/01/13 23:22:15 by livieira         ###   ########.fr       */
+/*   Updated: 2026/01/17 00:10:16 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,14 @@ public:
 	~WhoCommand();
 
 	void execute(Client *client, std::vector<std::string> arguments);
+};
+
+class TopicCommand : public Command
+{
+public:
+    TopicCommand(Server *server);
+    ~TopicCommand();
+    void execute(Client *client, std::vector<std::string> arguments);
 };
 
 class ListCommand : public Command

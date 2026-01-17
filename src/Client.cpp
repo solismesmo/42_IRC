@@ -45,7 +45,12 @@ void	Client::join(Channel *chan)
 
 	chan->broadcast(RPL_JOIN(getPrefix(), chan->getName()));
 
-	reply(RPL_NOTOPIC(this->getNickName(), chan->getName()));
+	// ✅ Aqui é o ponto que você queria: agora mostra tópico real
+	if (chan->getTopic().empty())
+		reply(RPL_NOTOPIC(this->getNickName(), chan->getName()));
+	else
+		reply(RPL_TOPIC(this->getNickName(), chan->getName(), chan->getTopic()));
+
 	reply(RPL_NAMREPLY(this->getNickName(), chan->getName(), users));
 	reply(RPL_ENDOFNAMES(this->getNickName(), chan->getName()));
 }
@@ -63,11 +68,24 @@ void	Client::welcome()
 	if (!this->isRegistered())
 		return ;
 	reply(RPL_WELCOME(this->getNickName(), this->getPrefix()));
-	reply(RPL_YOURHOST(this->getNickName(), this->_server->getServerName(), " "));
+	reply(RPL_YOURHOST(this->getNickName(), this->_server->getServerName(), "0.1"));
 	reply(RPL_CREATED(this->getNickName(), this->_server->getStartTime()));
-	reply(RPL_MYINFO(this->getNickName(), this->_server->getServerName(), " ", " ", " "));
+	reply(RPL_MYINFO(this->getNickName(), this->_server->getServerName(), "0.1", "aiorsw", "IObeiklmnopstv"));
+
 	reply("375 " + this->getNickName() + " :- " + this->_server->getServerName() + " Message of the day -");
 	reply("372 " + this->getNickName() + " :- Welcome to our IRC server!");
+
+	reply("372 " + this->getNickName() + " :- .-.-----------.-.");
+	reply("372 " + this->getNickName() + " :- | |--FT_IRC---|#|");
+	reply("372 " + this->getNickName() + " :- | |-----------| |");
+	reply("372 " + this->getNickName() + " :- | |-ocartier--| |");
+	reply("372 " + this->getNickName() + " :- | |-hprudhomme| |");
+	reply("372 " + this->getNickName() + " :- | \"--------42-' |");
+	reply("372 " + this->getNickName() + " :- |  .-----.-..   |");
+	reply("372 " + this->getNickName() + " :- |  |     | || |||");
+	reply("372 " + this->getNickName() + " :- |  |     | || \\/|");
+	reply("372 " + this->getNickName() + " :- \"--^-----^-^^---'");
+
 	reply("376 " + this->getNickName() + " :End of MOTD command");
 }
 

@@ -7,6 +7,7 @@ CommandHandler::CommandHandler(Server *server) : _server(server)
 	_commands["USER"] = new UserCommand(_server, false);
 	_commands["QUIT"] = new QuitCommand(_server, false);
 	_commands["PING"] = new PingCommand(_server);
+	_commands["TOPIC"] = new TopicCommand(_server);
 	_commands["PONG"] = new PongCommand(_server);
 	_commands["JOIN"] = new JoinCommand(_server);
 	_commands["MODE"] = new ModeCommand(_server);

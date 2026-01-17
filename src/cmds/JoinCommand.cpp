@@ -22,8 +22,8 @@ void JoinCommand::execute(Client *client, std::vector<std::string> arguments)
 
 	if (channel->invitOnlyChan())
 	{
-		client->reply(ERR_INVITEONLYCHAN(client->getNickName(), channel->getName()));
-		return ;
+		client->reply(ERR_INVITONLYCHAN(client->getNickName(), channel->getName()));
+		return;
 	}
 
 	// check already in chan

@@ -57,6 +57,13 @@ void ModeCommand::execute(Client *client, std::vector<std::string> arguments)
 				break;
 			}
 
+			case 't': {
+    			channel->setTopicRestricted(active);
+    			channel->broadcast(RPL_MODE(client->getPrefix(), channel->getName(), (active ? "+t" : "-t"), ""));
+    			break;
+			}
+
+
 			case 'o': {
 				Client *c_tar = channel->getClient(arguments[p]);
 				if (!c_tar)

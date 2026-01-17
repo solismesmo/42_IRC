@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Channel.hpp                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/13 23:22:27 by livieira          #+#    #+#             */
-/*   Updated: 2026/01/13 23:22:29 by livieira         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CHANNEL_CLASS_H
 # define CHANNEL_CLASS_H
 
@@ -29,6 +17,9 @@ private:
 	bool		_i; //invite-only chan
 	std::string _k; //chan's key(paasword)
 
+	bool		_t; //topic restricted (+t)
+	std::string	_topic; //channel topic
+
 	std::vector<Client *> _clients;
 	std::vector<Client *> _oper_clients;
 
@@ -40,11 +31,12 @@ public:
 	~Channel();
 
 	// GETTERS
-
 	Client						*getAdmin() const { return _admin; };
 	std::string const 			&getName() const { return _name; };
 	std::string const 			&getPassword() const { return _k; };
 	int							getMaxUsers() const { return _l; };
+	bool						isTopicRestricted() const { return _t; };
+	std::string const			&getTopic() const { return _topic; };
 	int							invitOnlyChan() { return _i; }
 
 	Client*						getClient(const std::string &nickname);
@@ -55,14 +47,14 @@ public:
 	std::vector<std::string>	getNickNames();
 
 	// SETTERS
-
 	void						setAdmin(Client *client) { _admin = client; };
 	void						setPassword(std::string k) { _k = k; };
 	void						setMaxClients(int l) { _l = l; };
 	void						setInviteOnly(bool active) { this->_i = active; };
+	void						setTopicRestricted(bool active) { this->_t = active; };
+	void						setTopic(const std::string &topic) { this->_topic = topic; };
 
 	// OTHER
-
 	void 						broadcast(std::string const &message);
 	void 						broadcast(const std::string &message, Client *exclude);
 	void 						removeClient(Client *client, std::string reason);
