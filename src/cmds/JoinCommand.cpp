@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 JoinCommand::JoinCommand(Server *server) : Command(server) {}
 

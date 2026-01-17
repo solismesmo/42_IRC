@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 PrivMsgCommand::PrivMsgCommand(Server *server) : Command(server) {};
 

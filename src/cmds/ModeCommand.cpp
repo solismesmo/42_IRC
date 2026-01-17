@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 ModeCommand::ModeCommand(Server *server) : Command(server) {}
 

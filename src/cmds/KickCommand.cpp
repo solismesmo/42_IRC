@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 KickCommand::KickCommand(Server *server) : Command(server) {}
 

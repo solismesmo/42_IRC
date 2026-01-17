@@ -1,5 +1,5 @@
-#include "ft_irc.hpp"
-#include "rpl.hpp"
+#include "Irc.hpp"
+#include "Replies.hpp"
 
 Channel::Channel(std::string const &name, std::string const &password, Client *admin, Server *server)
 	: _name(name), _admin(admin), _l(1000), _i(false), _k(password), _t(false), _topic(""), _server(server) {}

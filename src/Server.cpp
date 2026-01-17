@@ -1,5 +1,5 @@
 
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 Server::Server(int port, std::string const &password) :
 	_port(port),
@@ -24,49 +24,37 @@ Server::~Server(void)
 void	Server::listen(void)
 {
 	struct sockaddr_in6 address;
-
-	//create a master socket
 	this->_server_socket = socket(AF_INET6, SOCK_STREAM , IPPROTO_TCP);
 	if(this->_server_socket == 0)
 	{
 		std::cout << "Error: Socket creation failed." << std::endl;
 		return;
 	}
-
-	//set master socket to allow multiple connections
 	int opt = 1;
 	if(setsockopt(this->_server_socket, SOL_SOCKET, SO_REUSEADDR, (char *)&opt, sizeof(opt)) < 0)
 	{
 		std::cout << "Error: Can't set socket options." << std::endl;
 		return;
 	}
-
 	this->_setNonBlocking(this->_server_socket);
-
-	//type of socket created
 	const struct in6_addr in6addr_any = IN6ADDR_ANY_INIT;
 	address.sin6_family = AF_INET6;
 	address.sin6_addr = in6addr_any;
 	address.sin6_port = htons(this->_port);
 	address.sin6_flowinfo = 0;
 	address.sin6_scope_id = 0;
-
 	if (bind(this->_server_socket, (struct sockaddr *)&address, sizeof(address))<0)
 	{
 		std::cout << "Error: Can't bind socket." << std::endl;
 		close(this->_server_socket);
 		return;
 	}
-
 	std::cout << "Starting ircserv on port " << this->_port << std::endl;
-
-	// listen
 	if (::listen(this->_server_socket, 32) < 0)
 	{
 		std::cout << "Error: Can't listen on socket." << std::endl;
 		return;
 	}
-
 	std::cout << "Waiting for connections ..." << std::endl;
 	this->_constructFds();
 	while (42)
@@ -75,22 +63,18 @@ void	Server::listen(void)
 
 void	Server::_waitActivity(void)
 {
-	// wait for an activity in a socket
 	int rc = poll(this->_clients_fds, this->_clients.size() + 1, -1);
 	if (rc < 0)
 		std::cout << "Error: Can't look for socket(s) activity." << std::endl;
 
-	// loop in every client socket for a connection
 	for(unsigned long i=0; i < this->_clients.size() + 1; i++)
 	{
-		// revents will be != 0 if there is an activity on the socket
 		if(this->_clients_fds[i].revents == 0)
 			continue;
 
-		// if something append in the master socket, it's an incomming connection
 		if (this->_clients_fds[i].fd == this->_server_socket)
 			this->_acceptConnection();
-		else if (i > 0) // should be always true, because the first socket is the server socket
+		else if (i > 0)
 		{
 			Client *client = this->_clients[i - 1];
 			this->_receiveData(client);
@@ -101,7 +85,6 @@ void	Server::_waitActivity(void)
 void	Server::_acceptConnection(void)
 {
 	int	socket;
-
 	do {
 		struct sockaddr_in6 address;
 		socklen_t addrlen = sizeof(address);
@@ -130,7 +113,6 @@ void	Server::_receiveData(Client *client)
 				std::cout << "Error: recv() failed for fd " << client->getFD();
 				this->delClient(client->getFD());
 			}
-			// no more data to receive
 			break;
 		}
 		else if (!ret)
@@ -237,7 +219,6 @@ int	Server::delClient(int socket)
 					<< ", port: " << this->_clients[client]->getPort()
 					<< "}" << std::endl;
 
-			// Remove from channels
 			for (unsigned long chan = 0; chan < this->_channels.size(); chan++)
 			{
 				if (this->_channels[chan]->isInChannel(this->_clients[client]))

@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 PongCommand::PongCommand(Server *server) : Command(server) {}
 

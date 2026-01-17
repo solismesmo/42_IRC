@@ -6,7 +6,7 @@
 /*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 23:21:42 by livieira          #+#    #+#             */
-/*   Updated: 2026/01/13 23:21:55 by livieira         ###   ########.fr       */
+/*   Updated: 2026/01/17 12:20:16 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include "Server.hpp"
 # include "CommandHandler.hpp"
 # include "Command.hpp"
-# include "rpl.hpp"
+# include "Replies.hpp"
 
 std::string					ft_inet_ntop6(const void *a0);
 std::vector<std::string>	ft_split(const std::string& str, char c);

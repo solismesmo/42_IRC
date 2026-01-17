@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 QuitCommand::QuitCommand(Server *server, bool authRequired) : Command(server, authRequired) {}
 

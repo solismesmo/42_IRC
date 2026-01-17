@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 TopicCommand::TopicCommand(Server *server) : Command(server) {}
 TopicCommand::~TopicCommand() {}

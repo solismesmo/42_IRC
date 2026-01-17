@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 PartCommand::PartCommand(Server *server) : Command(server) {}
 

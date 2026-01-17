@@ -6,12 +6,12 @@
 /*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 23:16:42 by livieira          #+#    #+#             */
-/*   Updated: 2026/01/13 23:16:45 by livieira         ###   ########.fr       */
+/*   Updated: 2026/01/17 12:22:29 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 int main(int argc, char **argv)
 {

@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 CommandHandler::CommandHandler(Server *server) : _server(server)
 {

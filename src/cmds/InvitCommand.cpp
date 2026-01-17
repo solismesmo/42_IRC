@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 InvitCommand::InvitCommand(Server *server) : Command(server) {}
 

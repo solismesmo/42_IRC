@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 NickCommand::NickCommand(Server *server, bool auth) : Command(server, auth) {}
 

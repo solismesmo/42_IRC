@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 PingCommand::PingCommand(Server *server) : Command(server) {}
 

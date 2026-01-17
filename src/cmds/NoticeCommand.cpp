@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 NoticeCommand::NoticeCommand(Server *server) : Command(server) {};
 

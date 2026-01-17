@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 ListCommand::ListCommand(Server *server) : Command(server) {};
 

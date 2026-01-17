@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 UserCommand::UserCommand(Server *server, bool auth) : Command(server, auth) {}
 

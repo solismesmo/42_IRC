@@ -1,4 +1,4 @@
-#include "ft_irc.hpp"
+#include "Irc.hpp"
 
 WhoCommand::WhoCommand(Server *server) : Command(server) {}
 
