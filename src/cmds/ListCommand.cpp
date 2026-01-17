@@ -26,7 +26,6 @@ void ListCommand::execute(Client *client, std::vector<std::string> arguments)
 	{
 		if (arguments.empty() || isInChannelsList(chans[i], channelNames))
 		{
-			// ✅ Aqui é o ponto que você queria: LIST mostra tópico real
 			std::string topic = chans[i]->getTopic().empty() ? "No topic is set" : chans[i]->getTopic();
 			client->reply(RPL_LIST(client->getNickName(), chans[i]->getName(), intToString(chans[i]->getNbrClients()), topic));
 		}

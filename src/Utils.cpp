@@ -28,7 +28,6 @@ std::string ft_inet_ntop6(const void *a0)
 			256*a[4]+a[5],256*a[6]+a[7],
 			256*a[8]+a[9],256*a[10]+a[11],
 			a[12],a[13],a[14],a[15]);
-	/* Replace longest /(^0|:)[:0]{2,}/ with "::" */
 	for (i=best=0, max=2; buf[i]; i++) {
 		if (i && buf[i] != ':') continue;
 		j = strspn(buf+i, ":0");

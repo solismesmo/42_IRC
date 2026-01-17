@@ -19,7 +19,6 @@ void ModeCommand::execute(Client *client, std::vector<std::string> arguments)
 		return;
 	}
 
-	// check if admin or chanop
 	if (channel->getAdmin() != client && !channel->is_oper(client))
 	{
 		client->reply(ERR_CHANOPRIVSNEEDED(client->getNickName(), target));
