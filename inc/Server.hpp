@@ -6,7 +6,7 @@
 /*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 23:21:22 by livieira          #+#    #+#             */
-/*   Updated: 2026/01/13 23:21:25 by livieira         ###   ########.fr       */
+/*   Updated: 2026/01/17 17:29:12 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,8 @@ private:
 
 public:
 	Server(int port, std::string const &password);
-	// Server(const Server &src);
 	~Server(void);
-	// Server &operator =(const Server &src);
 
-	// Server
 	void			listen(void);
 	ssize_t			send(std::string const message, int const client_fd) const;
 	void			broadcast(std::string const message) const;
@@ -73,14 +70,12 @@ public:
 	std::string&	getPassword() { return _password; };
 	std::string&	getServerName() { return _server_name; };
 	std::string&	getStartTime() { return _start_time; };
-	// Client
 	std::vector<std::string>	getNickNames();
 	std::vector<Client *> 		getServClients() const { return _clients; };
 	int							addClient(int const fd, std::string const ip, int const port);
 	int							delClient(int fd);
 	Client*						getClient(int fd);
 	Client*						getClient(const std::string &nickname);
-	// Channel
 	Channel*					getChannel(std::string const &name);
 	std::vector<Channel *>		getServChannels() const { return _channels; };
 	Channel* 					createChannel(std::string const &name, std::string const &password, Client *client);

@@ -22,21 +22,11 @@ std::vector<std::string>	Channel::getNickNames()
 
 void Channel::broadcast(const std::string &message)
 {
-	// std::vector<Client *>::iterator it;;
-	// for (it = _clients.begin(); it != _clients.end(); it++)
-	// 	(*it)->write(message);
 	this->_server->broadcastChannel(message, this);
 }
 
 void Channel::broadcast(const std::string &message, Client *exclude)
 {
-	// std::vector<Client *>::iterator it;;
-	// for (it = _clients.begin(); it != _clients.end(); it++)
-	// {
-	// 	if (*it == exclude)
-	// 		continue;
-	// 	(*it)->write(message);
-	// }
 	this->_server->broadcastChannel(message, exclude->getFD(), this);
 }
 
@@ -88,14 +78,11 @@ void Channel::removeClient(Client *client, std::string reason)
 
 	if (_clients.empty())
 	{
-		// free chan and remove it from server
 		return;
 	}
 
 	if (_admin == client)
 		_admin = _clients.begin().operator*();
-
-	// message to say that there is a new admin
 }
 
 void Channel::removeOper(Client *client)

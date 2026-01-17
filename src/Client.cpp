@@ -3,7 +3,9 @@
 
 Client::Client(Server *server, int fd, std::string const &hostname, int port)
 					: _fd(fd), _hostname(hostname), _port(port), _correct_password(false), _server(server){}
-Client::~Client() {}
+Client::~Client() {
+	close(this->_fd);
+}
 
 void	Client::write(const std::string &message) const
 {

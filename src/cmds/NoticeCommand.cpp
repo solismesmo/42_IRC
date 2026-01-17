@@ -7,7 +7,6 @@ NoticeCommand::~NoticeCommand() {};
 void NoticeCommand::execute(Client *client, std::vector<std::string> arguments) {
 
 	if (arguments.size() < 2 || arguments[0].empty() || arguments[1].empty()) {
-		// ERR_NEEDMOREPARAMS
 		return;
 	}
 
@@ -36,7 +35,6 @@ void NoticeCommand::execute(Client *client, std::vector<std::string> arguments) 
 		}
 		if (it == client_chans.end())
 		{
-			// ERR_NOTONCHANNEL
 			return;
 		}
 
@@ -47,7 +45,6 @@ void NoticeCommand::execute(Client *client, std::vector<std::string> arguments) 
 	Client *dest = _server->getClient(target);
 	if (!dest)
 	{
-		// ERR_NOSUCHNICK
 		return;
 	}
 	dest->write(RPL_NOTICE(client->getPrefix(), target, message));

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 23:16:42 by livieira          #+#    #+#             */
-/*   Updated: 2026/01/17 12:22:29 by livieira         ###   ########.fr       */
+/*   Updated: 2026/01/17 16:55:30 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int main(int argc, char **argv)
 		return (1);
 	}
 
+	signal(SIGPIPE, SIG_IGN);
 	Server server = Server(atoi(argv[1]), argv[2]);
 	server.listen();
 	return (0);

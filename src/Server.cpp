@@ -1,5 +1,13 @@
 
 #include "Irc.hpp"
+volatile int is_running = TRUE;
+
+void stop_server(int signum)
+{
+	(void)signum;
+	is_running = FALSE;
+	std::cout << "\nShutting down server..." << std::endl;
+}
 
 Server::Server(int port, std::string const &password) :
 	_port(port),
@@ -9,7 +17,7 @@ Server::Server(int port, std::string const &password) :
 	_clients_fds(NULL),
 	_handler(CommandHandler(this))
 {
-
+	signal(SIGINT, stop_server);
 }
 
 Server::~Server(void)
@@ -19,6 +27,7 @@ Server::~Server(void)
 	for (unsigned long i = 0; i < this->_channels.size(); i++)
 		delete this->_channels[i];
 	delete [] this->_clients_fds;
+	close(this->_server_socket);
 }
 
 void	Server::listen(void)
@@ -57,7 +66,7 @@ void	Server::listen(void)
 	}
 	std::cout << "Waiting for connections ..." << std::endl;
 	this->_constructFds();
-	while (42)
+	while (is_running)
 		this->_waitActivity();
 }
 
@@ -87,26 +96,16 @@ void	Server::_waitActivity(void)
 void	Server::_acceptConnection(void)
 {
 	int	socket;
-	// do {
-		struct sockaddr_in6 address;
-		socklen_t addrlen = sizeof(address);
-
-		socket = accept(this->_server_socket, (struct sockaddr*)&address, (socklen_t*)&addrlen);
-		// if (socket < 0)
-		// {
-		// 	if (errno != EWOULDBLOCK)
-		// 		std::cout << "Error: Failed to accept connection." << std::endl;
-		// 	break;
-		// }
-		this->addClient(socket, ft_inet_ntop6(&address.sin6_addr), ntohs(address.sin6_port));
-	// } while (socket != -1);
+	struct sockaddr_in6 address;
+	socklen_t addrlen = sizeof(address);
+	socket = accept(this->_server_socket, (struct sockaddr*)&address, (socklen_t*)&addrlen);
+	this->addClient(socket, ft_inet_ntop6(&address.sin6_addr), ntohs(address.sin6_port));
 }
 
 void	Server::_receiveData(Client *client)
 {
 	char	buffer[BUFFER_SIZE + 1];
 
-	// do {
 		int ret = recv(client->getFD(), buffer, sizeof(buffer), 0);
 
 		if (ret <= 0)
@@ -118,9 +117,6 @@ void	Server::_receiveData(Client *client)
 		{
 			buffer[ret] = '\0';
 			std::string buff = buffer;
-
-			// std::cout << "client " << client->getFD() << " " << buff << std::endl;
-
 			if (buff.at(buff.size() - 1) == '\n') {
 				std::vector<std::string> cmds = ft_split(client->getPartialRecv() + buff, '\n');
 				client->setPartialRecv("");
@@ -135,7 +131,6 @@ void	Server::_receiveData(Client *client)
 					std::cout << "partial recv(" << client->getFD() << "): " << buff << std::endl;
 			}
 		}
-	// } while(TRUE);
 }
 
 void	Server::_setNonBlocking(int fd)
@@ -260,6 +255,13 @@ void	Server::_constructFds(void)
 	if (this->_clients_fds)
 		delete [] this->_clients_fds;
 	this->_clients_fds = new struct pollfd[this->_clients.size() + 1];
+	
+	for (int i = 0; i < (int)(this->_clients.size() + 1); i++)
+	{
+		this->_clients_fds[i].fd = -1;
+		this->_clients_fds[i].events = 0;
+		this->_clients_fds[i].revents = 0;
+	}
 
 	this->_clients_fds[0].fd = this->_server_socket;
 	this->_clients_fds[0].events = POLLIN;

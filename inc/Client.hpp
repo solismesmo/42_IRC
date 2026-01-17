@@ -6,7 +6,7 @@
 /*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 23:22:20 by livieira          #+#    #+#             */
-/*   Updated: 2026/01/13 23:22:22 by livieira         ###   ########.fr       */
+/*   Updated: 2026/01/17 17:28:24 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,21 @@ class Client
 		Client(Server *server, int fd, std::string const &hostname, int port);
 		~Client();
 
-		// GETTERS
-
 		bool 					isRegistered() const;
 		int						getFD() const { return _fd; };
 		std::string const 		&getHostName() const { return _hostname; };
 		int 					getPort() const { return _port; };
-
 		std::string const 		&getNickName() const { return _nickname; };
 		std::string const 		&getUserName() const { return _username; };
 		std::string const 		&getRealName() const { return _realname; };
 		std::string const 		&getPartialRecv() const { return _partial_recv; };
-
 		std::vector<Channel *> 	getUserChans() const { return _user_chans; };
-
-		// SETTERS
 
 		void 					setNickname(const std::string &nickname) { _nickname = nickname; };
 		void 					setUsername(const std::string &username) { _username = username; };
 		void 					setRealName(const std::string &realname) { _realname = realname; };
 		void 					setPartialRecv(const std::string &partial_recv) { _partial_recv = partial_recv; };
 		void					setCorrectPassword(bool correct_password) { _correct_password = correct_password; };
-
-		// OTHER
-
 		void 					write(const std::string &message) const;
 		void 					reply(const std::string &reply);
 		std::string 			getPrefix() const;

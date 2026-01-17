@@ -17,7 +17,6 @@ void UserCommand::execute(Client *client, std::vector<std::string> arguments) {
 		return;
 	}
 	client->setUsername(arguments[0]);
-	// std::string realname = arguments[3].substr(1);
 	std::cout << "Realname: " << arguments[3] << std::endl;
 	client->setRealName(arguments[3]);
 	client->welcome();

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_irc.hpp                                         :+:      :+:    :+:   */
+/*   Irc.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 23:21:42 by livieira          #+#    #+#             */
-/*   Updated: 2026/01/17 12:20:16 by livieira         ###   ########.fr       */
+/*   Updated: 2026/01/17 16:53:58 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include "CommandHandler.hpp"
 # include "Command.hpp"
 # include "Replies.hpp"
+# include <signal.h>
 
 std::string					ft_inet_ntop6(const void *a0);
 std::vector<std::string>	ft_split(const std::string& str, char c);

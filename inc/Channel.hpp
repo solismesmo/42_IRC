@@ -13,12 +13,12 @@ private:
 	std::string _name;
 	Client		*_admin;
 
-	int 		_l; //max user in chan
-	bool		_i; //invite-only chan
-	std::string _k; //chan's key(paasword)
+	int 		_l;
+	bool		_i;
+	std::string _k;
 
-	bool		_t; //topic restricted (+t)
-	std::string	_topic; //channel topic
+	bool		_t;
+	std::string	_topic;
 
 	std::vector<Client *> _clients;
 	std::vector<Client *> _oper_clients;
@@ -30,7 +30,6 @@ public:
 	Channel(std::string const &name, const std::string &password, Client *admin, Server *server);
 	~Channel();
 
-	// GETTERS
 	Client						*getAdmin() const { return _admin; };
 	std::string const 			&getName() const { return _name; };
 	std::string const 			&getPassword() const { return _k; };
@@ -46,15 +45,12 @@ public:
 	int							getNbrClients() const { return _clients.size(); };
 	std::vector<std::string>	getNickNames();
 
-	// SETTERS
 	void						setAdmin(Client *client) { _admin = client; };
 	void						setPassword(std::string k) { _k = k; };
 	void						setMaxClients(int l) { _l = l; };
 	void						setInviteOnly(bool active) { this->_i = active; };
 	void						setTopicRestricted(bool active) { this->_t = active; };
 	void						setTopic(const std::string &topic) { this->_topic = topic; };
-
-	// OTHER
 	void 						broadcast(std::string const &message);
 	void 						broadcast(const std::string &message, Client *exclude);
 	void 						removeClient(Client *client, std::string reason);
